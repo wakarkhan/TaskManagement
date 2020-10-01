@@ -9,7 +9,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return 'asdasd';
+        return view('welcome');
     }
 
     public function create()
