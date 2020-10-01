@@ -14,7 +14,7 @@ class CreateTkStatusesTable extends Migration
     public function up()
     {
         Schema::create('tk_statuses', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('StatusID');
             $table->string('StatusText',200);
             $table->integer('CompanyID')->nullable();
             $table->datetime('CreatedOn')->nullable();

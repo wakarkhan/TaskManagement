@@ -14,7 +14,7 @@ class CreateTkTasksTable extends Migration
     public function up()
     {
         Schema::create('tk_tasks', function (Blueprint $table) {
-            $table->id('TaskID');
+            $table->bigIncrements('TaskID');
             $table->string('Title',300);
             $table->string('Description',500)->nullable();
             $table->integer('ClientID')->nullable();

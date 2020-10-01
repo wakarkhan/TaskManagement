@@ -14,7 +14,7 @@ class CreateTkProjectsTable extends Migration
     public function up()
     {
         Schema::create('tk_projects', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('ProjectID');
             $table->string('ProjectName',200);
             $table->text('Description')->nullable();
             $table->integer('Status')->nullable();

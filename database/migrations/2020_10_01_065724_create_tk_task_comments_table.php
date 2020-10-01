@@ -14,7 +14,7 @@ class CreateTkTaskCommentsTable extends Migration
     public function up()
     {
         Schema::create('tk_task_comments', function (Blueprint $table) {
-            $table->id('CommentID');
+            $table->bigIncrements('CommentID');
             $table->integer('TaskID');
             $table->text('CommentText');
             $table->integer('CommentBy');

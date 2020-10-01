@@ -14,7 +14,7 @@ class CreateMstCompaniesTable extends Migration
     public function up()
     {
         Schema::create('mst_companies', function (Blueprint $table) {
-            $table->id('CompanyID');
+            $table->bigIncrements('CompanyID');
             $table->string('CompanyName',300)->nullable();
             $table->integer('Status')->nullable();
             $table->datetime('RegisteredDate')->nullable();

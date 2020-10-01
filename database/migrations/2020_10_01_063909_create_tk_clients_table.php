@@ -14,7 +14,7 @@ class CreateTkClientsTable extends Migration
     public function up()
     {
         Schema::create('tk_clients', function (Blueprint $table) {
-            $table->id('ClientID');
+            $table->bigIncrements('ClientID');
             $table->string('ClientName',200)->nullable();
             $table->integer('Status')->nullable();
             $table->integer('CompanyID')->nullable();

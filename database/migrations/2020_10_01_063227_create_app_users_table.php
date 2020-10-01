@@ -14,7 +14,7 @@ class CreateAppUsersTable extends Migration
     public function up()
     {
         Schema::create('app_users', function (Blueprint $table) {
-            $table->id('UserID');
+            $table->bigIncrements('UserID');
             $table->string('FirstName',100);
             $table->string('LastName',100);
             $table->string('Phone',15)->nullable();

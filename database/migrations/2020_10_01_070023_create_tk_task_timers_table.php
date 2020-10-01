@@ -14,7 +14,7 @@ class CreateTkTaskTimersTable extends Migration
     public function up()
     {
         Schema::create('tk_task_timers', function (Blueprint $table) {
-            $table->id('TimerID');
+            $table->bigIncrements('TimerID');
             $table->integer('TaskID');
             $table->time('TaskTime');
             $table->integer('IsBillable')->nullable();

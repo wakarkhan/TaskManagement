@@ -14,7 +14,7 @@ class CreateAppRolesTable extends Migration
     public function up()
     {
         Schema::create('app_roles', function (Blueprint $table) {
-            $table->id('RoleID');
+            $table->bigIncrements('RoleID');
             $table->string('RoleName',200);
             $table->integer('Status')->nullable();
             $table->datetime('CreatedOn')->nullable();

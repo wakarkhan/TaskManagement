@@ -14,7 +14,7 @@ class CreateAppRolesPermissionTable extends Migration
     public function up()
     {
         Schema::create('app_roles_permission', function (Blueprint $table) {
-            $table->id('PermissionID');
+            $table->bigIncrements('PermissionID');
             $table->integer('MenuDetailID')->nullable();
             $table->integer('UserID')->nullable();
             $table->datetime('CreatedOn')->nullable();

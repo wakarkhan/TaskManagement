@@ -14,7 +14,7 @@ class CreateTkPriorityTable extends Migration
     public function up()
     {
         Schema::create('tk_priority', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('PriorityID');
             $table->string('PriorityName',50)->nullable();
             $table->integer('Status')->nullable();
             $table->integer('CompanyID')->nullable();

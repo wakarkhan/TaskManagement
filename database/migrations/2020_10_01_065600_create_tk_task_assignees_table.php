@@ -14,7 +14,7 @@ class CreateTkTaskAssigneesTable extends Migration
     public function up()
     {
         Schema::create('tk_task_assignees', function (Blueprint $table) {
-            $table->id('AssignID');
+            $table->bigIncrements('AssignID');
             $table->integer('TaskID')->nullable();
 		    $table->integer('AssignTo')->nullable();
         });

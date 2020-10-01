@@ -14,7 +14,7 @@ class CreateAppMenusTable extends Migration
     public function up()
     {
         Schema::create('app_menus', function (Blueprint $table) {
-            $table->id('MenuID');
+            $table->bigIncrements('MenuID');
             $table->string('Title',100);
             $table->string('Description',500)->nullable();
             $table->integer('SortOrder')->nullable();

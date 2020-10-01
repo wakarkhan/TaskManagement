@@ -14,7 +14,7 @@ class CreateTkModulesTable extends Migration
     public function up()
     {
         Schema::create('tk_modules', function (Blueprint $table) {
-            $table->id('ModuleID');
+            $table->bigIncrements('ModuleID');
             $table->string('ModuleName',100);
             $table->integer('ProjectID')->nullable();
             $table->integer('Status')->nullable();

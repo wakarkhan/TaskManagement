@@ -14,7 +14,7 @@ class CreateAppFormsTable extends Migration
     public function up()
     {
         Schema::create('app_forms', function (Blueprint $table) {
-            $table->id('FormID');
+            $table->bigIncrements('FormID');
             $table->string('FormName');
             $table->integer('Status');
             $table->string('Link')->nullable();

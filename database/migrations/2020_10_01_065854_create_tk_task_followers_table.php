@@ -14,7 +14,7 @@ class CreateTkTaskFollowersTable extends Migration
     public function up()
     {
         Schema::create('tk_task_followers', function (Blueprint $table) {
-            $table->id('FollowerID');
+            $table->bigIncrements('FollowerID');
             $table->integer('TaskID')->nullable();
             $table->integer('FollowedBy')->nullable();
         });

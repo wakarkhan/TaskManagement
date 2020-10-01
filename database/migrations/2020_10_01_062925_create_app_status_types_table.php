@@ -14,7 +14,7 @@ class CreateAppStatusTypesTable extends Migration
     public function up()
     {
         Schema::create('app_status_types', function (Blueprint $table) {
-            $table->id('StatusID');
+            $table->bigIncrements('StatusID');
             $table->string('StatusType',100)->nullable();
             $table->string('StatusText',100)->nullable();
             $table->string('StatusValue',50)->nullable();
