@@ -2,9 +2,6 @@
 
 Route::get('profile', 'UserController@show')->middleware('auth');
 
-
-Route::get('/', function(){
-    return view('dashboard');
-});
+Route::get('/', 'DashboardController@index');
 
 Route::resource('user', 'UserController');

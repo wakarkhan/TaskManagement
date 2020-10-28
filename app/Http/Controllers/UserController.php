@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\UserModel;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -9,31 +9,19 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('dashboard');
+        return view('User.user-list');
     }
 
     public function create()
     {
-        return 'hello';
+        return view('User.user-add-edit');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //

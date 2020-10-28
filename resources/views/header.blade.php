@@ -29,6 +29,8 @@
   <link rel="stylesheet" href="{{ URL::asset('Content/plugins/fullcalendar/main.css') }}">
 
   <link rel="stylesheet" href="{{ URL::asset('Content/dist/css/adminlte.min.css') }}">
+
+  <link rel="stylesheet" href="{{ URL::asset('Content/dist/css/General.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -77,7 +79,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/User" class="nav-link">
+                <a href="/user" class="nav-link">
                   <i class="ion ion-record nav-icon"></i>
                   <p>Users</p>
                 </a>
