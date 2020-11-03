@@ -27,31 +27,42 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-body">
-                   <form id="frmUserAddEdit" action="/user/store" method="POST">
+                   <form id="frmUserAddEdit" action="{{ route('user.store') }}" method="POST">
+                    @csrf
                     <div class="form-group form-inline">
-                        <label for="txtFirstName">First name</label>
-                        <input class="form-control mx-2 require" type="text" id="txtFirstName" name="FirstName" placeholder="enter firstname" maxlength="50" />
+                        <label for="txtFirstName" class="col-sm-2">First name</label>
+                        <input class="form-control col-sm-3 require" type="text" data-alpha="true" id="txtFirstName" name="FirstName" placeholder="enter firstname" maxlength="50" />
 
-                        <label for="txtLastName">Last name</label>
-                        <input class="form-control mx-2 require" type="text" id="txtLastName" name="LastName" placeholder="enter lastname" maxlength="50" />
-
-                        <label for="txtPhone">Phone</label>
-                        <input class="form-control mx-2 require" type="text" id="txtPhone" name="Phone" placeholder="enter phone" maxlength="11" data-inputmask='"mask": "(999) 999-9999"' data-mask />
+                        <label for="txtLastName" class="col-sm-2">Last name</label>
+                        <input class="form-control col-sm-3 require" type="text"  data-alpha="true" id="txtLastName" name="LastName" placeholder="enter lastname" maxlength="50" />
                     </div>
 
                     <div class="form-group form-inline">
-                        <label class="mx-3" for="txtEmail">Email</label>
-                        <input class="form-control mx-2 require" type="text" id="txtEmail" name="Email" placeholder="enter email address" maxlength="100" />
+                        <label for="txtPhone"  class="col-sm-2">Phone</label>
+                        <input class="form-control col-sm-3 require" type="text"  data-number="true" id="txtPhone" name="Phone" placeholder="enter phone" maxlength="11" data-inputmask='"mask": "(999) 999-9999"' data-mask />
+                        <label  for="txtEmail"  class="col-sm-2">Email</label>
+                        <input class="form-control col-sm-3 require" type="text" id="txtEmail" name="Email" placeholder="enter email address" maxlength="100" />
+                    </div>
 
-                        <label for="txtUsername">Username</label>
-                        <input class="form-control mx-2 require" type="text" id="txtUsername" name="Username" placeholder="enter username" maxlength="20"/>
 
-                        <label class="mx-3" for="txtUsername">Role</label>
-                        <select class="form-control select2 require" id="sltRole" name="RoleID" style="width:14em">
-                            <option>Please select</option>
-                            <option>Administrator</option>
-                            <option>Other</option>
+                    <div class="form-group form-inline">
+                        <label for="txtUsername" class="col-sm-2">Username</label>
+                        <input class="form-control col-sm-3 require" type="text" id="txtUsername" name="Username" placeholder="enter username" maxlength="20"/>
+
+                        <label class="col-sm-2" for="txtUsername">Role</label>
+                        <select class="form-control col-sm-3 select2 require" id="sltRole" name="RoleID">
+                            <option value="">Please select</option>
+                            <option value="1">Administrator</option>
+                            <option value="2">Other</option>
                         </select>
+                    </div>
+
+                    <div class="form-group form-inline">
+                        <label class="col-sm-2" for="txtPassword">Password</label>
+                        <input class="form-control col-sm-3 require" type="password" id="txtPassword" name="Password" placeholder="enter password" maxlength="20" />
+                       
+                         <label class="col-sm-2" for="txtConfPassword">Confirm Password</label>
+                        <input class="form-control col-sm-3 require" type="password" id="txtConfPassword" placeholder="enter confirm password" maxlength="20" />
                     </div>
                     <hr>
 
@@ -64,33 +75,20 @@
                           <thead class="bg-secondary">
                             <tr class="text-center">
                               <th scope="row">Privileges</th>
-                              <th scope="row">View</th>
-                              <th scope="row">Edit</th>
-                              <th scope="row">Delete</th>
+                              <th scope="row">Can View</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr>
                               <td style="font-weight: bold;">Configurations</td>
                             </tr>
+
                             <tr class="text-center">
                               <td>Users</td>
-                              <td> 
+                              <td class="chkbox-p">
                                   <div class="custom-control custom-checkbox" style="cursor: pointer;">
                                     <input type="checkbox" class="custom-control-input chkview" id="chkView_1" name="view[]">
                                     <label class="custom-control-label" for="chkView_1"></label>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="custom-control custom-checkbox" style="cursor: pointer;">
-                                    <input type="checkbox" class="custom-control-input chkedit" id="chkEdit_1" name="edit[]">
-                                    <label class="custom-control-label" for="chkEdit_1"></label>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="custom-control custom-checkbox" style="cursor: pointer;">
-                                    <input type="checkbox" class="custom-control-input chkdelete" id="chkDelete_1" name="delete[]">
-                                    <label class="custom-control-label" for="chkDelete_1"></label>
                                   </div>
                               </td>
                             </tr>

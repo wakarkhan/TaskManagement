@@ -17,9 +17,9 @@ class CreateTkStatusesTable extends Migration
             $table->bigIncrements('StatusID');
             $table->string('StatusText',200);
             $table->integer('CompanyID')->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
     }

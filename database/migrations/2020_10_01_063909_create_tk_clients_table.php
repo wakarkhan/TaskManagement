@@ -18,9 +18,9 @@ class CreateTkClientsTable extends Migration
             $table->string('ClientName',200)->nullable();
             $table->integer('Status')->nullable();
             $table->integer('CompanyID')->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
     }

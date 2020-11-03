@@ -42,6 +42,10 @@
 <!-- overlayScrollbars -->
 <script src="{{ URL::asset('Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="{{ URL::asset('Content/scripts/General.js') }}"></script>
+
 
 <script>
   $(function () {

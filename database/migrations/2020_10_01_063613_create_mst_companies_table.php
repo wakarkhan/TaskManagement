@@ -21,9 +21,9 @@ class CreateMstCompaniesTable extends Migration
             $table->string('LicenseKey',500)->nullable();
             $table->datetime('LicenseStart')->nullable();
             $table->datetime('LicenseExpiry')->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
     }

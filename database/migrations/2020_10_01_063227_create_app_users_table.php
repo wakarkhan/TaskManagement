@@ -22,11 +22,11 @@ class CreateAppUsersTable extends Migration
             $table->string('Username',30)->nullable();
             $table->string('Password',500)->nullable();
             $table->integer('CompanyID')->nullable();
-            $table->integer('RoleID');
-            $table->integer('Status');
-            $table->datetime('CreatedOn')->nullable();
+            $table->integer('RoleID')->nullable();;
+            $table->integer('Status')->nullable();;
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
     }

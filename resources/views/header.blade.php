@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>ZEROX | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
@@ -33,6 +34,7 @@
   <link rel="stylesheet" href="{{ URL::asset('Content/dist/css/General.css') }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
+<div id="loader" class="loading" hidden>Loading&#8230;</div>
 <div class="wrapper">
 
   <!-- Main Sidebar Container -->

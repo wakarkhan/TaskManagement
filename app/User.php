@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserModel extends Model
+class User extends Model
 {
+	protected $table = 'app_users';
+	public $timestamps = false;
     protected $fillable = [
         'UserID',
         'FirstName',

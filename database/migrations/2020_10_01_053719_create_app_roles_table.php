@@ -17,7 +17,8 @@ class CreateAppRolesTable extends Migration
             $table->bigIncrements('RoleID');
             $table->string('RoleName',200);
             $table->integer('Status')->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });

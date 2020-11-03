@@ -18,9 +18,9 @@ class CreateAppStatusTypesTable extends Migration
             $table->string('StatusType',100)->nullable();
             $table->string('StatusText',100)->nullable();
             $table->string('StatusValue',50)->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
     }

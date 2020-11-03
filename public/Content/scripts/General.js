@@ -43,3 +43,11 @@ $('#loader').removeAttr('hidden');
 function HideLoader() {
 $('#loader').attr('hidden', true);
 }
+
+$.ajaxSetup({
+    beforeSend: function(xhr, type) {
+        if (!type.crossDomain) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        }
+    },
+});

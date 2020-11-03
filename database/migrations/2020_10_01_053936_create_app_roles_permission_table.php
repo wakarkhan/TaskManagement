@@ -15,11 +15,13 @@ class CreateAppRolesPermissionTable extends Migration
     {
         Schema::create('app_roles_permission', function (Blueprint $table) {
             $table->bigIncrements('PermissionID');
+            $table->string('PermissionType')->nullable();
             $table->integer('MenuDetailID')->nullable();
             $table->integer('UserID')->nullable();
-            $table->datetime('CreatedOn')->nullable();
+            $table->integer('IsView')->nullable();
+            $table->timestamp('CreatedOn')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('ModifiedOn')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('CreatedBy')->nullable();
-            $table->datetime('ModifiedOn')->nullable();
         });
     }
 

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\UserModel;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -9,7 +9,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('User.user-list');
+        $userList = User::all();
+        return view('User.user-list', compact('userList'));
     }
 
     public function create()
@@ -18,8 +19,27 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {
-        //
+    {    
+        try {
+            $request->validate([
+            'FirstName'=>'required',
+            'LastName'=>'required',
+            'Email'=>'required',
+            'Username'=>'required',
+        ]);
+
+        $userData = new User([
+            'FirstName' => $request->get('FirstName'),
+            'LastName' => $request->get('LastName'),
+            'Username' => $request->get('Username'),
+            'Phone' => $request->get('Phone'),
+            'Email' => $request->get('Email'),
+        ]);
+        $userData->save();
+        echo "Success";
+        }catch(\Exception $e){
+            echo "Failed";
+        }
     }
 
     public function show($id)
