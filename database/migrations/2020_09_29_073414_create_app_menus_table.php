@@ -19,8 +19,27 @@ class CreateAppMenusTable extends Migration
             $table->string('Description',500)->nullable();
             $table->integer('SortOrder')->nullable();
             $table->string('ClassName',100)->nullable();
+            $table->integer('ChildMenusCount')->nullable();
             $table->integer('Status')->nullable();
         });
+
+        DB::table('app_menus')->insert([
+            ['Title' => 'Configuration',
+             'Description' => 'App Configurations',
+             'SortOrder' => 0,
+             'ClassName' => 'nav-icon far fa-plus-square',
+             'ChildMenusCount' => 7,
+             'Status' => 1
+            ],
+
+            ['Title' => 'Task',
+             'Description' => 'Tasks Management',
+             'SortOrder' => 0,
+             'ClassName' => 'nav-icon fas fa-edit',
+             'ChildMenusCount' => 3,
+             'Status' => 1
+            ]
+        ]);
     }
 
     /**

@@ -16,7 +16,8 @@ $(function () {
 		}
 	});
    
-  })
+});
+
 $('#frmUserAddEdit').on('submit', function (e) {
     ShowLoader();
     var form = e.target;    
@@ -56,6 +57,7 @@ $('#frmUserAddEdit').on('submit', function (e) {
     };
     xhr.send(new FormData(form));
 });
+
 function ValidateData() {
    var result = true;
    $('#frmUserAddEdit .require').each(function () {

@@ -78,7 +78,7 @@
                               <th scope="row">Can View</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="roleBody">
                             <tr>
                               <td style="font-weight: bold;">Configurations</td>
                             </tr>

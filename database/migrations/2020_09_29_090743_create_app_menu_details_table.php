@@ -20,8 +20,36 @@ class CreateAppMenuDetailsTable extends Migration
             $table->string('Title',100)->nullable();
             $table->string('Description',200)->nullable();
             $table->integer('SortOrder')->nullable();
-            $table->integer('MenuType')->nullable();
         });
+
+        //GET MENU RECORDS
+        $menuList = DB::table('app_menus')->get();
+        $menuChildCount = 1;
+
+        foreach($menuList as $rowMenu)
+        {
+            $sortOrder = 1;
+            $formList = DB::select('select * from app_forms where FormID not in (Select FormID from app_menu_details) ');
+            $menuChildCount = 1;
+            foreach($formList as $rowForm)
+            {
+                $isMenuDetailExist = DB::table('app_menu_details')->where('Title',$rowForm->FormName)->count();
+                if($menuChildCount <= (int)$rowMenu->ChildMenusCount){
+                    if($menuChildCount <= $rowMenu->ChildMenusCount) {
+                        DB::table('app_menu_details')->insert([
+                            ['MenuID' => $rowMenu->MenuID,
+                             'FormID' => $rowForm->FormID,
+                             'Title' =>  $rowForm->FormName,
+                             'Description' => $rowForm->FormName .' Management',
+                             'SortOrder' => $sortOrder,
+                            ]
+                        ]);
+                        $menuChildCount++;
+                    }
+                }
+                $sortOrder++;
+            }
+        }
     }
 
     /**
