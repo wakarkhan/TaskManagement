@@ -1,44 +1,49 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use App\Role;
-
+use App\DbModel\UserModel;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-
     public function index()
     {
-        $userList = User::all();
-        return view('User.user-list', compact('userList'));
+        return view('User.user-list');
     }
 
     public function create()
     {
-        return view('User.user-add-edit');
+        //GET ALL USER ROLES:
+        $userModel = new UserModel();
+        $roleDropDownList = $userModel->getAllRoles();
+        $userRoles = $userModel->getUserRoles();
+
+        return view('User.user-add-edit',compact('roleDropDownList','userRoles'));
     }
 
     public function store(Request $request)
-    {    
+    {
         try {
+            //VALIDATIONS:
             $request->validate([
-            'FirstName'=>'required',
-            'LastName'=>'required',
-            'Email'=>'required',
-            'Username'=>'required',
-        ]);
+                'FirstName'=>'required',
+                'LastName'=>'required',
+                'Email'=>'required',
+                'Username'=>'required',
+                'RoleID' => 'required',
+                'Password'=>'required'
+            ]);
 
-        $userData = new User([
-            'FirstName' => $request->get('FirstName'),
-            'LastName' => $request->get('LastName'),
-            'Username' => $request->get('Username'),
-            'Phone' => $request->get('Phone'),
-            'Email' => $request->get('Email'),
-        ]);
-        $userData->save();
-        echo "Success";
+            //STORING USER DATA:
+            $userModel = new UserModel();
+            $array = json_decode($request->get('roles'), true);
+            var_dump($array);
+            // if($userModel->SaveUpdateUser($request)){
+            //     echo "Success";    
+            // }else{
+            //     echo "Failed";
+            // }
+
         }catch(\Exception $e){
             echo "Failed";
         }

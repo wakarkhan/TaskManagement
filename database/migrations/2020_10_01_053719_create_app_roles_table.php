@@ -22,6 +22,18 @@ class CreateAppRolesTable extends Migration
             $table->integer('CreatedBy')->nullable();
             $table->integer('ModifiedBy')->nullable();
         });
+
+        DB::table('app_roles')->insert([
+            ['RoleName' => 'Administrator',
+             'Status' => 1,
+             'CreatedBy' => 1,
+            ],
+
+            ['RoleName' => 'Other',
+             'Status' => 1,
+             'CreatedBy' => 1,
+            ]
+        ]);
     }
 
     /**

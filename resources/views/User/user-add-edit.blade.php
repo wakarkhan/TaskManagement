@@ -29,6 +29,9 @@
                 <div class="card-body">
                    <form id="frmUserAddEdit" action="{{ route('user.store') }}" method="POST">
                     @csrf
+
+                    <input type="hidden" name="UserID" id="UserID" value="0" />
+                    
                     <div class="form-group form-inline">
                         <label for="txtFirstName" class="col-sm-2">First name</label>
                         <input class="form-control col-sm-3 require" type="text" data-alpha="true" id="txtFirstName" name="FirstName" placeholder="enter firstname" maxlength="50" />
@@ -41,7 +44,7 @@
                         <label for="txtPhone"  class="col-sm-2">Phone</label>
                         <input class="form-control col-sm-3 require" type="text"  data-number="true" id="txtPhone" name="Phone" placeholder="enter phone" maxlength="11" data-inputmask='"mask": "(999) 999-9999"' data-mask />
                         <label  for="txtEmail"  class="col-sm-2">Email</label>
-                        <input class="form-control col-sm-3 require" type="text" id="txtEmail" name="Email" placeholder="enter email address" maxlength="100" />
+                        <input class="form-control col-sm-3 require" type="email" id="txtEmail" name="Email" placeholder="enter email address" maxlength="100" />
                     </div>
 
 
@@ -51,9 +54,10 @@
 
                         <label class="col-sm-2" for="txtUsername">Role</label>
                         <select class="form-control col-sm-3 select2 require" id="sltRole" name="RoleID">
-                            <option value="">Please select</option>
-                            <option value="1">Administrator</option>
-                            <option value="2">Other</option>
+                          <option value="">Please select</option>
+                          <?php foreach($roleDropDownList as $row): ?>
+                              <option value="{{ $row->RoleID }}">{{ $row->RoleName }}</option>
+                          <?php endforeach ?>
                         </select>
                     </div>
 
@@ -79,23 +83,43 @@
                             </tr>
                           </thead>
                           <tbody id="roleBody">
-                            <tr>
-                              <td style="font-weight: bold;">Configurations</td>
-                            </tr>
+                            <?php
+                              $cnt = 1;
+                              $oldParentMenuID=0;
+                              $isSameParent = false;
+                            ?>
+                            <?php
+                              foreach($userRoles as $role): 
+                               if($oldParentMenuID == $role->MenuID){
+                                  $isSameParent = true;
+                               }
+                               else{
+                                  $isSameParent = false;
+                               }
+                            ?>
+
+                              @if(!$isSameParent)
+                                <tr>
+                                  <td style="font-weight: bold;">{{ $role->ParentTitle }}</td>
+                                </tr>
+                              @endif
 
                             <tr class="text-center">
-                              <td>Users</td>
+                              <td>{{$role->Title}}</td>
                               <td class="chkbox-p">
                                   <div class="custom-control custom-checkbox" style="cursor: pointer;">
-                                    <input type="checkbox" class="custom-control-input chkview" id="chkView_1" name="view[]">
-                                    <label class="custom-control-label" for="chkView_1"></label>
+                                    <input type="checkbox" class="custom-control-input chkviews" id="chkView_{{ $role->MenuDetailID }}">
+                                    <label class="custom-control-label" for="chkView_{{ $role->MenuDetailID }}"></label>
                                   </div>
                               </td>
                             </tr>
+                              <?php $oldParentMenuID = $role->MenuID; $cnt++; ?>
+                           <?php endforeach ?> 
                           </tbody>
                         </table>
                       </div>
                     </div>
+                    <input type="hidden" id="txtRoles" name="roles">
 
                     <div class="row" style="float: right">
                         <button id="btnSaveUser" class="btn btn-success mr-2">Save</button>
