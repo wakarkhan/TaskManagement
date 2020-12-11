@@ -1,3 +1,4 @@
+$('#dataTable').DataTable();
 
 function FocusOnValidation() {
     if ($(".required-valid:visible").length > 0) {

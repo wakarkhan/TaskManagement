@@ -23,12 +23,10 @@
     <!-- Main content -->
     <section class="content">
       <div class="container">
-        <div class="row text-right mb-2">
-            <div class="col-md-12"><button class="btn btn-success btn-sm" onclick="window.location.href='/user/create'">Create New</button> </div>
+        <div class="row text-right mb-3">
+            <div class="col-md-12"><button class="btn btn-success btn-md" onclick="window.location.href='/user/create'">Create New</button> </div>
         </div>
-
-        <div class="row">
-        <table class="table table-bordered table-hover">
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr class="bg-dark">
                     <th>Full Name</th>
@@ -40,23 +38,27 @@
                 </tr>
             </thead>
             <tbody>
+              <?php foreach($userList as $user): ?>
                 <tr>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td>
-                        <button class="btn btn-primary btn-sm">Edit</button>
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </td>
+                  <td>{{ $user->FirstName . ' ' . $user->LastName }}</td>
+                  <td>{{ $user->Phone }}</td>
+                  <td>{{ $user->Email }}</td>
+                  <td>{{ $user->Username }}</td>
+                  <td>{{ $user->RoleName }}</td>
+                  <td>
+                      <a id="btnEditUser" href="{{ route('user.edit',$user->Username) }}" class="btn btn-primary btn-sm" >Edit</button>
+                      <a id="btnDeleteUser" class="btn btn-danger btn-sm" data-id ="{{ $user->UserID }}">Delete</button>
+                  </td>
                 </tr>
-                <tr>
+              <?php endforeach ?>
             </tbody>
         </table>
-        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
+@endsection
+
+@section('externaljss')
+<script src="{{ URL::asset('Content/scripts/user/UserListing.js') }}"></script>
 @endsection

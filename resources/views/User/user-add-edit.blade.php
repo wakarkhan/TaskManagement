@@ -31,7 +31,7 @@
                     @csrf
 
                     <input type="hidden" name="UserID" id="UserID" value="0" />
-                    
+
                     <div class="form-group form-inline">
                         <label for="txtFirstName" class="col-sm-2">First name</label>
                         <input class="form-control col-sm-3 require" type="text" data-alpha="true" id="txtFirstName" name="FirstName" placeholder="enter firstname" maxlength="50" />
@@ -61,13 +61,19 @@
                         </select>
                     </div>
 
-                    <div class="form-group form-inline">
+                    <div class="form-group form-inline passDiv">
                         <label class="col-sm-2" for="txtPassword">Password</label>
                         <input class="form-control col-sm-3 require" type="password" id="txtPassword" name="Password" placeholder="enter password" maxlength="20" />
                        
                          <label class="col-sm-2" for="txtConfPassword">Confirm Password</label>
                         <input class="form-control col-sm-3 require" type="password" id="txtConfPassword" placeholder="enter confirm password" maxlength="20" />
                     </div>
+
+                      <div class="row passBtn" hidden>
+                          <div class="col-md-12 mb-2 text-center">
+                             <button class="btn btn-primary">Change Password</button>
+                          </div>
+                      </div>
                     <hr>
 
                     <div class="row">
@@ -122,8 +128,8 @@
                     <input type="hidden" id="txtRoles" name="roles">
 
                     <div class="row" style="float: right">
-                        <button id="btnSaveUser" class="btn btn-success mr-2">Save</button>
-                        <button id="btnCancelUser" class="btn btn-danger ">Cancel</button>
+                      <input type="button" id="btnSaveUser" class="btn btn-success mr-2" value="Save" />
+                      <input type="button"  id="btnCancelUser" class="btn btn-danger" value="Cancel" />
                     </div>
                 </form>
                 </div>
@@ -138,5 +144,26 @@
 @endsection
 
 @section('externaljss')
+<script>
+    var mode_ = {!! json_encode($Mode) !!};    
+    if(mode_ == 'Edit') {
+        var userData_ = {!! json_encode($userData) !!};
+        var userExistingRoles_ = {!! json_encode($userExistingRoles) !!};
+        
+        if(userData_ != null && userData_.length > 0) {
+          $('#UserID').val(userData_[0].UserID);
+          $('#txtFirstName').val(userData_[0].FirstName);
+          $('#txtLastName').val(userData_[0].LastName);
+          $('#txtPhone').val(userData_[0].Phone);
+          $('#txtEmail').val(userData_[0].Email);
+          $('#txtUsername').val(userData_[0].Username);
+          $('#sltRole').val(userData_[0].RoleID);
+
+          $('.passDiv').attr('hidden',true);
+          $('.passBtn').removeAttr('hidden');
+          
+        }
+    }
+</script>
 <script src="{{ URL::asset('Content/scripts/user/AddEditUser.js') }}"></script>
 @endsection

@@ -39,7 +39,10 @@
 <!-- overlayScrollbars -->
 <script src="{{ URL::asset('Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 
 <script src="{{ URL::asset('Content/scripts/General.js') }}"></script>
 

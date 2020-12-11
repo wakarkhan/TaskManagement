@@ -35,6 +35,22 @@ $(function () {
 		}
 	});
 
+  $('#btnCancelUser').click(function(e) {
+       Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to discard changes.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = '/user';
+        }
+      });
+  });
+
   $('#sltRole').change(function(e) {
       if($('#sltRole option:selected').text() == 'Administrator') {
         $('.chkviews').attr('checked',true);
@@ -54,31 +70,29 @@ $('#frmUserAddEdit').on('submit', function (e) {
     xhr.open(form.method, form.action);
     xhr.onreadystatechange = function (data) {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            debugger; 
             HideLoader();
             var res = xhr.responseText;           
             if (res == 'Success') {
-                swal({
-                    title: "User",
-                    text: "Save successfully.",
-                    icon: "success",
-                    timer: 2000,
-                    button: "Ok!",
-                }).then(function () {
-                    window.location.href = "/user";
-                })
+                Swal.fire({
+                  title: "User",
+                  text: "Save successfully.",
+                  icon: 'success',
+                  timer:3000
+                }).then((result) => {
+                  window.location.href = "/user";
+                });
             }
             else {
-                swal({
-                      title: "User",
-                      text: "Something went wrong. Please try again later.",
-                      icon: "warning",
-                      button: "Ok!",
-                  }).then(function () {
-                      window.location.href = "/user";
-                  })
+              Swal.fire({
+                  title: "User",
+                  text: "Something went wrong. Please try again later.",
+                  icon: 'error',
+                  timer:3000
+                }).then((result) => {
+                  window.location.href = "/user";
+                });               
             }
-        }else{ HideLoader(); }
+        }
     };
     xhr.send(new FormData(form));
 });
@@ -94,7 +108,13 @@ function ValidateData() {
                if ($(this).val().trim().length < 11) {
                     result = false;
                     $(this).addClass('required-valid');
-                    swal('Please type correct phone.');
+                    Swal.fire({
+                      icon: 'error',
+                      text: 'Please type correct phone.',
+                      timer:2000
+                    }).then((result) => {
+                      FocusOnValidation();
+                    })
                 }
             }
             else if (this.id == 'txtEmail') {
@@ -102,8 +122,13 @@ function ValidateData() {
                     $(this).removeClass('required-valid');
                 } else {
                     result = false;
-                    swal('Please type correct email.');                    
-                    result = false;
+                    Swal.fire({
+                      icon: 'error',
+                      text: 'Please type correct email.',
+                      timer:2000
+                    }).then((result) => {
+                      FocusOnValidation();
+                    });               
                     $(this).addClass('required-valid');
                 }
             }
@@ -116,26 +141,36 @@ function ValidateData() {
    if(result) {
       //CHECK PASSWORDS IF SAME:
      if($('#txtPassword').val() != $('#txtConfPassword').val()){
-        swal("Passwords did not match.");
-        $('html, body').animate({
+         Swal.fire({
+          icon: 'error',
+          text: 'Passwords did not match.',
+          timer:2000
+        }).then((result) => {
+          $('html, body').animate({
             scrollTop: $("#txtPassword").offset().top - 70
-        }, 1000);
-        $('#txtPassword').first().focus();
+          }, 1000);
+          $('#txtPassword').first().focus();
+        });
         return;
      }
 
      if($('.chkviews:checked').length == 0) {
         result = false;
-        swal('Please selected privileges.');
-        $('html, body').animate({
+          Swal.fire({
+          icon: 'error',
+          text: 'Please selected privileges.',
+          timer:2000
+        }).then((result) => {
+          $('html, body').animate({
             scrollTop: $(".chkviews:visible").first().offset().top - 70
-        }, 1000);
-        $('.chkviews:visible').first().focus();
+          }, 1000);
+          $('.chkviews:visible').first().focus();
+        });
      }
+   }else{
+      FocusOnValidation();
    }
-   
-    FocusOnValidation();
-
+  
     return result;
 }
 

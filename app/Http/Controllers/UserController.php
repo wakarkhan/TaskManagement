@@ -8,7 +8,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('User.user-list');
+        $userModel = new UserModel();
+        $userList = $userModel->getAllUsers();
+        return view('User.user-list',compact('userList'));
     }
 
     public function create()
@@ -17,8 +19,9 @@ class UserController extends Controller
         $userModel = new UserModel();
         $roleDropDownList = $userModel->getAllRoles();
         $userRoles = $userModel->getUserRoles();
+        $Mode = 'Add';
 
-        return view('User.user-add-edit',compact('roleDropDownList','userRoles'));
+        return view('User.user-add-edit',compact('roleDropDownList','userRoles','Mode'));
     }
 
     public function store(Request $request)
@@ -36,16 +39,19 @@ class UserController extends Controller
 
             //STORING USER DATA:
             $userModel = new UserModel();
-            $array = json_decode($request->get('roles'), true);
-            var_dump($array);
-            // if($userModel->SaveUpdateUser($request)){
-            //     echo "Success";    
-            // }else{
-            //     echo "Failed";
-            // }
+            $rolesData = json_decode($request->get('roles'), true);
+            $insertedUserID = $userModel->SaveUpdateUser($request);
+
+            if((int)$insertedUserID > 0) {
+                //STORING ROLES:
+                $userModel->SaveUserPermissions($insertedUserID,$rolesData); 
+                echo "Success";    
+            }else{
+                echo "Failed";
+            }
 
         }catch(\Exception $e){
-            echo "Failed";
+            echo $e;
         }
     }
 
@@ -60,29 +66,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($userName)
     {
-        //
+        //GET ALL USER ROLES:
+        $userModel = new UserModel();
+        $roleDropDownList = $userModel->getAllRoles();
+        $userRoles = $userModel->getUserRoles();
+
+        $Mode = 'Edit';
+        $userData = $userModel->getUserData($userName);
+        $userExistingRoles = array();
+        if(!empty($userData)) {
+            $userExistingRoles = $userModel->getUserExistingRoles($userData->UserID);    
+        }
+        
+
+        return view('User.user-add-edit',compact('roleDropDownList','userRoles','Mode','userData','userExistingRoles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
