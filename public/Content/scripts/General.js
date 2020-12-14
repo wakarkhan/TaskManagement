@@ -1,4 +1,12 @@
-$('#dataTable').DataTable();
+$('#dataTable').DataTable({
+    "aaSorting": []
+});
+
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
 
 function FocusOnValidation() {
     if ($(".required-valid:visible").length > 0) {

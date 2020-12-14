@@ -53,7 +53,9 @@ class UserModel {
     public function SaveUpdateUser($request)
     {
       try {
-        $userData = new User([
+        $userID = (int)$request->get('UserID');
+        if($userID == 0) { 
+            $userData = new User([
             'UserID' => $request->get('UserID'),
             'FirstName' => $request->get('FirstName'),
             'LastName' => $request->get('LastName'),
@@ -64,25 +66,51 @@ class UserModel {
             'Password' => md5($request->get('Password')),
             'Status' => 1,
             'IsMaster' => 0,
-        ]);
+            ]);
 
-        $userData->save();
-        $insertedUserID = $userData->id;
+            $userData->save();
+            $insertedUserID = $userData->id;
+            return $insertedUserID;
 
-        return $insertedUserID;
+        } else {
+            //UPDATING RECORD:
+            $userData = DB::table('app_users')
+                        ->where('UserID',$userID)
+                        ->update([
+                            'FirstName' => $request->get('FirstName'),
+                            'LastName' => $request->get('LastName'),
+                            'Username' => $request->get('Username'),
+                            'RoleID' => $request->get('RoleID'),
+                            'Phone' => $request->get('Phone'),
+                            'Email' => $request->get('Email'),
+                        ]);
+
+            $updatedUserID = $userID;
+            return $updatedUserID;
+        }
 
       } catch (Exception $e) {
         return 0;
       }       
     }
-    public function SaveUserPermissions($UserID,$roles)
+    public function SaveUserPermissions($userID,$roles)
     {
         try {
             if($roles != null) {
+                //CHECK IF EXISTING ROLES EXIST:
+                $userExistingRoles = DB::table('app_roles_permission')
+                ->select('UserID')
+                ->where('UserID',$userID)
+                ->count();
+
+                if($userExistingRoles > 0) {
+                    DB::table('app_roles_permission')->where('UserID', $userID)->delete();
+                }
+
                 foreach ($roles as $row) {
                     DB::table('app_roles_permission')->insert([
                         [   'MenuDetailID' => $row['MenuDetailID'],
-                            'UserID' => $UserID,
+                            'UserID' => $userID,
                             'IsView' =>  $row['IsView'],
                             'CreatedBy' => 1,
                         ]
@@ -105,7 +133,7 @@ class UserModel {
                 ->limit(1)
                 ->get();
 
-            return $userList;   
+            return $userList;  
         } catch (Exception $e) {
             return null;            
         }
@@ -124,6 +152,37 @@ class UserModel {
             return null;            
         }
     }
+    public function updateUserPassword($request)
+    {
+        try {
+            DB::table('app_users')
+                ->where('UserID',$request->get('userID'))
+                ->update([
+                    'Password'  => md5($request->get('password')),
+                ]);
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 #END EDIT USER MODE:
+
+#DELETE USER:
+    public function deleteUser($request)
+    {
+        try {
+            DB::table('app_users')
+                ->where('UserID',$request->get('userID'))
+                ->update([
+                    'Status'  => 2, // DELETED STATUS
+                ]);
+
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+#END DELETE USER:
     
 }

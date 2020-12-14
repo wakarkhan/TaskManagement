@@ -34,7 +34,7 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th data-orderable="false">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,8 +46,8 @@
                   <td>{{ $user->Username }}</td>
                   <td>{{ $user->RoleName }}</td>
                   <td>
-                      <a id="btnEditUser" href="{{ route('user.edit',$user->Username) }}" class="btn btn-primary btn-sm" >Edit</button>
-                      <a id="btnDeleteUser" class="btn btn-danger btn-sm" data-id ="{{ $user->UserID }}">Delete</button>
+                      <a href="{{ route('user.edit',$user->Username) }}" class="btn btn-primary btn-sm mx-2 btnEditUser" >Edit</button>
+                      <a class="btn btn-danger btn-sm btnDeleteUser" data-id ="{{ $user->UserID }}" data-name="{{ $user->FirstName . ' ' . $user->LastName }}">Delete</button>
                   </td>
                 </tr>
               <?php endforeach ?>

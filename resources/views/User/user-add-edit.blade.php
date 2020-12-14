@@ -27,6 +27,11 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-body">
+                  <div class="form-group" style="text-align: end;">
+                      <input type="button" class="btn btn-success mr-2 btnSaveUser" value="Save">
+                      <input type="button" class="btn btn-danger btnCancelUser" value="Cancel">
+                  </div>
+
                    <form id="frmUserAddEdit" action="{{ route('user.store') }}" method="POST">
                     @csrf
 
@@ -71,7 +76,7 @@
 
                       <div class="row passBtn" hidden>
                           <div class="col-md-12 mb-2 text-center">
-                             <button class="btn btn-primary">Change Password</button>
+                             <input id="btnPasswordModel" type="button" class="btn btn-primary" data-toggle="modal" data-target="#PasswordModel" value="Change Password" />
                           </div>
                       </div>
                     <hr>
@@ -128,8 +133,8 @@
                     <input type="hidden" id="txtRoles" name="roles">
 
                     <div class="row" style="float: right">
-                      <input type="button" id="btnSaveUser" class="btn btn-success mr-2" value="Save" />
-                      <input type="button"  id="btnCancelUser" class="btn btn-danger" value="Cancel" />
+                      <input type="button" class="btn btn-success mr-2 btnSaveUser" value="Save">
+                      <input type="button" class="btn btn-danger btnCancelUser" value="Cancel">
                     </div>
                 </form>
                 </div>
@@ -140,6 +145,38 @@
       </div> <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
+      <!-- Password Modal -->
+      <div class="modal fade" id="PasswordModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmPasswordChange">
+                    @csrf
+                    <div class="form-group">
+                      <label for="txtNewPassword">New Password</label>
+                      <input class="form-control require" type="password" id="txtNewPassword" name="Password" placeholder="enter password" maxlength="20" />
+                    </div>
+                    <div class="form-group">
+                      <label for="txtNewConfPassword">Confirm Password</label>
+                      <input class="form-control require" type="password" id="txtNewConfPassword" placeholder="enter confirm password" maxlength="20" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <input id="btnClosePassModel" type="button" class="btn btn-secondary" data-dismiss="modal" value="Cancel" />
+              <input id="btnUpdatePass" type="button" class="btn btn-success" value="Save" />
+            </div>
+          </div>
+        </div>
+      </div>
+
   </div>
 @endsection
 
@@ -159,8 +196,19 @@
           $('#txtUsername').val(userData_[0].Username);
           $('#sltRole').val(userData_[0].RoleID);
 
-          $('.passDiv').attr('hidden',true);
+          $('.passDiv').remove();
           $('.passBtn').removeAttr('hidden');
+          if(userExistingRoles_ !=null && userExistingRoles_.length > 0){
+              var data_ = userExistingRoles_;
+              for(i=0;i<data_.length;i++) {
+                  $('.chkviews').each(function(i,e){
+                      var menuDetailID_ = e.id.split('_')[1];
+                      if(menuDetailID_ == data_[i].MenuDetailID && data_[i].IsView == 1){
+                          $(e).attr('checked',true);
+                      }
+                  })
+              }
+          }
           
         }
     }
