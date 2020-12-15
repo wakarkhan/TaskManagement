@@ -1,5 +1,4 @@
-$(function () {
-
+$(document).ready(function(){
   $('.chkbox-p').click(function() {
     var chkInput = $(this).find('.chkviews');
     if(chkInput[0].checked){

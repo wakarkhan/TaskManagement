@@ -11,23 +11,23 @@ class UserController extends Controller
     {
         $userModel = new UserModel();
         $userList = $userModel->getAllUsers();
-        Session::put('userList', $userList);
+       // Session::put('userList', $userList);
         return view('User.user-list',compact('userList'));
     }
 
     public function create()
     {
-        // //GET ALL USER ROLES:
-        // $userModel = new UserModel();
-        // $roleDropDownList = $userModel->getAllRoles();
-        // $userRoles = $userModel->getUserRoles();
-        // $userData = null;
-        // $userExistingRoles = array();
-        // $Mode = 'Add';
+        //GET ALL USER ROLES:
+        $userModel = new UserModel();
+        $roleDropDownList = $userModel->getAllRoles();
+        $userRoles = $userModel->getUserRoles();
+        $userData = null;
+        $userExistingRoles = array();
+        $Mode = 'Add';
 
-        // return view('User.user-add-edit',compact('roleDropDownList','userRoles','Mode','userData','userExistingRoles'));
+        return view('User.user-add-edit',compact('roleDropDownList','userRoles','Mode','userData','userExistingRoles'));
 
-        var_dump(Session::get('userList'));
+        ///var_dump(Session::get('userList'));
     }
 
     public function store(Request $request)

@@ -1,8 +1,7 @@
 <?php
 
-Route::get('profile', 'UserController@show')->middleware('auth');
-
-Route::get('/', 'DashboardController@index');
+Route::get('/', 'AuthenticationController@index');
+Route::post('/authentication/checkLogin', 'AuthenticationController@checkLogin');
 
 ### USER ROUTING ###
 Route::resource('user', 'UserController');

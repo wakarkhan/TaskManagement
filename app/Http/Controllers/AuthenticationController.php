@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Session;
 
 
-class DashboardController extends Controller
+class AuthenticationController extends Controller
 {
     public function index(Request $request)
     {
@@ -16,5 +16,14 @@ class DashboardController extends Controller
 		}else{
 			return view('Authentication.login');
 		}
+    }
+
+    public function checkLogin(Request $request)
+    {        
+        try {
+           echo $request->get('email_username');
+        } catch (Exception $e) {
+            echo $e;
+        }
     }
 }
