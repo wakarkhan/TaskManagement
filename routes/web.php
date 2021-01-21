@@ -1,7 +1,8 @@
 <?php
 
 Route::get('/', 'AuthenticationController@index');
-Route::post('/authentication/checkLogin', 'AuthenticationController@checkLogin');
+
+Route::post('/authentication/checkLogin', 'AuthenticationController@checkLogin')->name('login');
 
 ### USER ROUTING ###
 Route::resource('user', 'UserController');

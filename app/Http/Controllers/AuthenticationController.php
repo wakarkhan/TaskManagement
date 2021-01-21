@@ -23,7 +23,7 @@ class AuthenticationController extends Controller
         try {
            echo $request->get('email_username');
         } catch (Exception $e) {
-            echo $e;
+           echo $e;
         }
     }
 }

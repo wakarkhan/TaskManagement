@@ -39,7 +39,7 @@ class CreateAppUsersTable extends Migration
              'Phone' => '03012367099',
              'Email' => 'wakaarkhan@yahoo.com',
              'Username' => 'wakarkhan',
-             'Password' => md5("khan#786"),
+             'Password' => Hash::make("khan#786"),
              'IsMaster' => 1,
              'RoleID' => 1,
              'Status' => 1,

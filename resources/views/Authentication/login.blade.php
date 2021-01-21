@@ -27,8 +27,8 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
-
-      <form  action="{{ route('authentication.checkLogin') }}" method="POST">
+      <form id="frmLogin">
+        <input type="hidden" id="_token" value="{{ csrf_token() }}">
         <div class="input-group mb-3">
           <input type="text" class="form-control require" placeholder="Email or Username" name="email_username">
           <div class="input-group-append">
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control require" placeholder="Password">
+          <input type="password" class="form-control require" placeholder="Password" name="password" />
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -48,7 +48,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" name="isRemember">
               <label for="remember">
                 Remember Me
               </label>
@@ -72,6 +72,6 @@
 <script src="{{ URL::asset('Content/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('Content/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ URL::asset('Content/dist/js/adminlte.min.js') }} "></script>
-<script src="{{ URL::asset('Content/scripts/authentication/Login.js') }}"></script>
+<script src="{{ URL::asset('Content/scripts/authentication/login.js') }}"></script>
 </body>
 </html>

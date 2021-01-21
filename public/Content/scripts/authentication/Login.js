@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$('.btn-sign-in').click(function (e) {
 		if(ValidateData()) {
-			$('#frmUserAddEdit').submit();
+			checkLogin();
 		}
 	})
 
@@ -12,14 +12,57 @@ $(document).ready(function(){
 	});
 });
 
+function checkLogin() {
+	$.ajax({
+		url:'/authentication/checkLogin',
+		type:'POST',
+		beforeSend:function () {
+			///ShowLoader();
+		},
+		data:{userID:userID_},
+		success:function (res) {
+		  if (res == 'Success') {
+           //    Swal.fire({
+           //      title: "User Deletion",
+           //      text: "Deleted successfully.",
+           //      icon: 'success',
+           //      timer:3000
+           //    }).then((result) => {
+              //   location.reload();
+              // });
+          } else {
+            Swal.fire({
+                title: "User Deletion",
+                text: "Something went wrong. Please try again later.",
+                icon: 'error',
+                timer:3000
+              }).then((result) => {
+                location.reload();
+              });             
+           }
+		},
+		error:function (e) {
+			Swal.fire({
+                title: "User Deletion",
+                text: "Something went wrong. Please try again later.",
+                icon: 'error',
+                timer:3000
+              }).then((result) => {
+                location.reload();
+            }); 
+		}
+	});
+}
+
+
 function ValidateData() {
    var result = true;
    $('form .require').each(function () {
         if ($(this).val().trim() == '') {
             result = false;
-            $(this).addClass('required-valid');
+            $(this).parent().addClass('required-valid');
         } else {
-            $(this).removeClass('required-valid');
+            $(this).parent().removeClass('required-valid');
       }
     });
 
@@ -38,3 +81,4 @@ function FocusOnValidation() {
         $('.required-valid:visible').first().focus();
     }
 }
+
